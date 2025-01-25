@@ -3,6 +3,7 @@
 #include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 int naive_power(int x, int n){
     if(x==0)
@@ -37,7 +38,7 @@ int optimized_dc_power(int x, int n){
         return x * temp * temp;
 }
 
-// Drive functions to manually test a bunch of test cases using assert statements
+// Driver function to manually test a bunch of test cases using assert statements
 void test_power_functions() {
     // Edge cases
     // Note: 0^0 has no universally agreed upon value, so it is not tested as an edge case
@@ -124,19 +125,19 @@ void test_power_functions() {
 }
 
 // Function to benchmark the functions and compare their runtimes
-// It's hard to see a difference with a naked eye since the functions are near-instant even for values approaching maximum integers
+// It's hard to see a difference with the naked eye since the functions are near-instant even for values approaching maximum integers
 // So timing with chrono is needed to answer TPQs
 
 template<typename Func>
 void benchmark(Func func, int x, int n, int iterations, const string& label) {
-    auto start = chrono::high_resolution_clock::now();
+    auto start = high_resolution_clock::now();
 
-    for (int i = 0; i < iterations; ++i) {
+    for (int i = 0; i < iterations; i++) {
         func(x, n); // Call the function
     }
 
-    auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start).count();
     cout << label << ": " << duration / iterations << " ns (average per call)" << endl;
 }
 
